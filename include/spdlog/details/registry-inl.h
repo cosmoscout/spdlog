@@ -262,8 +262,7 @@ SPDLOG_INLINE void registry::set_automatic_registration(bool automatic_registrat
 
 SPDLOG_INLINE registry &registry::instance()
 {
-    static registry s_instance;
-    return s_instance;
+    return registry_instance::s_instance;
 }
 
 SPDLOG_INLINE void registry::throw_if_exists_(const std::string &logger_name)

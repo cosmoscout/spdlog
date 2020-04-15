@@ -24,7 +24,7 @@ namespace details {
 class thread_pool;
 class periodic_worker;
 
-class SPDLOG_REGISTRY_ATTRIBUTES registry
+class registry
 {
 public:
     registry(const registry &) = delete;
@@ -81,6 +81,8 @@ public:
 
     static registry &instance();
 
+    friend struct registry_instance;
+
 private:
     registry();
     ~registry() = default;
@@ -99,6 +101,10 @@ private:
     std::shared_ptr<logger> default_logger_;
     bool automatic_registration_ = true;
     size_t backtrace_n_messages_ = 0;
+};
+
+struct SPDLOG_REGISTRY_ATTRIBUTES registry_instance {
+  static inline registry s_instance;
 };
 
 } // namespace details

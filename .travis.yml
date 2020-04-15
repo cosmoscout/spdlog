@@ -30,15 +30,6 @@ addons: &clang35
       - ubuntu-toolchain-r-test
       - llvm-toolchain-precise-3.5
       
-# Clang 7.0
-addons: &clang70
-  apt:
-    packages:
-      - clang-7      
-    sources:
-      - ubuntu-toolchain-r-test
-      - llvm-toolchain-trusty-7
-
 
 
 matrix:
@@ -65,13 +56,6 @@ matrix:
       os: linux
       addons: *clang35
 
-      # Test clang-7.0: C++11, Build=Debug, ASAN=On
-    - env: CLANG_VERSION=7 BUILD_TYPE=Debug CPP=11 ASAN=On TSAN=Off
-      dist: bionic      
-
-    - env: CLANG_VERSION=7 BUILD_TYPE=Release CPP=11 ASAN=On TSAN=Off
-      dist: bionic
-      
       # osx
     - env: BUILD_TYPE=Release CPP=11 ASAN=Off TSAN=Off
       os: osx
@@ -97,6 +81,7 @@ script:
       -DCMAKE_CXX_STANDARD=$CPP \
       -DSPDLOG_BUILD_EXAMPLE=ON \
       -DSPDLOG_BUILD_EXAMPLE_HO=ON \
+      -DSPDLOG_ENABLE_WARNINGS=ON \
       -DSPDLOG_BUILD_BENCH=OFF \
       -DSPDLOG_BUILD_TESTS=ON \
       -DSPDLOG_BUILD_TESTS_HO=OFf \

@@ -31,7 +31,8 @@ set(SPDLOG_UTESTS_SOURCES
     test_fmt_helper.cpp
   	test_stdout_api.cpp
 	test_backtrace.cpp
-	test_create_dir.cpp)
+	test_create_dir.cpp
+		test_cfg.cpp)
 
 if(NOT SPDLOG_NO_EXCEPTIONS)
 	list(APPEND SPDLOG_UTESTS_SOURCES test_errors.cpp)
@@ -59,11 +60,11 @@ function(spdlog_prepare_test test_target spdlog_lib)
 endfunction()
 
 # The compiled library tests
-if(SPDLOG_BUILD_TESTS)
+if(SPDLOG_BUILD_TESTS OR SPDLOG_BUILD_ALL)
     spdlog_prepare_test(spdlog-utests spdlog::spdlog)
 endif()
 
 # The header-only library version tests
-if(SPDLOG_BUILD_TESTS_HO)
+if(SPDLOG_BUILD_TESTS_HO OR SPDLOG_BUILD_ALL)
     spdlog_prepare_test(spdlog-utests-ho spdlog::spdlog_header_only)
 endif()
